@@ -78,4 +78,17 @@ class Scraper:
         
         
         return temp_data
+    
+    def get_correlations(self,list_of_stocks):
+        temp = []
+        for i in range(len(list_of_stocks)):
+            temp.append(list_of_stocks[i].lower())
+        
+        list_of_correlations = []
+        for tweet in self.get():
+            for word in tweet.split():
+                if word in temp and word != self.ticker.lower():
+                    list_of_correlations.append(word)
+        return list_of_correlations
+
         

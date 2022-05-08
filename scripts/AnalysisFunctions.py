@@ -54,11 +54,20 @@ def popular_words(documents):
     return fdist
 
 
-def make_wordcloud(texts, ticker):
+def make_wordcloud(texts, ticker, location):
     texts = str(texts)
     texts = texts.replace("'", '')
 
     # take relative word frequencies into account, lower max_font_size
     wordcloud = WordCloud(
         max_font_size=40, relative_scaling=.5).generate(texts)
-    wordcloud.to_file(f'./wordclouds/{ticker}.png')
+    if location == "pos":
+        wordcloud.to_file(f'./pos_wordclouds/{ticker}.png')
+    elif location == "neg":
+        wordcloud.to_file(f'./neg_wordclouds/{ticker}.png')
+    else:
+        wordcloud.to_file(f'./wordclouds/{ticker}.png')
+
+    plt.figure()
+    plt.imshow(wordcloud)
+    plt.axis("off")
