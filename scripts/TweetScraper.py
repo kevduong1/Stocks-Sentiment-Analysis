@@ -26,7 +26,12 @@ class Scraper:
                                          )
         responses.extend(tweets.data)
         # recursive call
-        self.__scrape_pages(tweets[3]['next_token'], pages - 1, responses)
+        try:
+            next_token = tweets[3]['next_token']
+        except:
+            return
+    
+        self.__scrape_pages(next_token, pages - 1, responses)
         
         
     def __get_text(self):
